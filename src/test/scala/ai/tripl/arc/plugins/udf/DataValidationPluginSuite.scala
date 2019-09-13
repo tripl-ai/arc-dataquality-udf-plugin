@@ -77,8 +77,10 @@ class DataValidationPluginSuite extends FunSuite with BeforeAndAfter {
         val row = ARC.run(pipeline)(spark, logger, arcContext).get.first
         
         assert(row.getBoolean(0) == true)
-        assert(row.getString(1) == "+61499000000")
-        assert(row.getBoolean(2) == true)
+        assert(row.getBoolean(1) == false)
+        assert(row.getString(2) == "+61499000000")
+        assert(row.getBoolean(3) == true)
+        assert(row.getBoolean(4) == false)
       }
     }
   }
