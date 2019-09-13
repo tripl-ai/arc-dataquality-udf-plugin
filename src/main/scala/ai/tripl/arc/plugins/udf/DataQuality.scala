@@ -43,7 +43,11 @@ object DataQualityPlugin {
   def formatPhoneNumber(numberToParse: String, defaultRegion: String): String = {
     val phoneUtil = PhoneNumberUtil.getInstance
     val parsed = phoneUtil.parse(numberToParse, defaultRegion)
-    phoneUtil.format(parsed, PhoneNumberFormat.E164)
+    if (phoneUtil.isValidNumber(parsed)) {
+      phoneUtil.format(parsed, PhoneNumberFormat.E164)
+    } else {
+      throw new Exception("Cannot format invalid phone number.")
+    }
   }
 
   // validates whether an ABN passes the inbuilt checksum function

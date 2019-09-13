@@ -110,17 +110,27 @@ class DataQualitySuite extends FunSuite with BeforeAndAfter {
     case class PhoneNumberValid(
       number: String,
       region: String,
-      valid: String,
+      valid: Option[String],
     )
 
     val tests = List(
-      PhoneNumberValid("61499000000", "AU", "+61499000000"),
-      PhoneNumberValid("(555) 555-1234", "US", "+15555551234")
+      PhoneNumberValid("61499000000", "AU", Option("+61499000000")),
+      PhoneNumberValid("(555) 555-1234", "US", None),
+      PhoneNumberValid("61499000000", "US", None)
     )
 
     tests.foreach{ 
       t: PhoneNumberValid => {
-        assert(ai.tripl.arc.plugins.udf.DataQualityPlugin.formatPhoneNumber(t.number, t.region) == t.valid, s"${t.number} ${t.region}")
+        t.valid match {
+          case Some(valid) => assert(ai.tripl.arc.plugins.udf.DataQualityPlugin.formatPhoneNumber(t.number, t.region) == valid, s"${t.number} ${t.region}")
+          case None => {
+            val thrown0 = intercept[Exception] {
+              ai.tripl.arc.plugins.udf.DataQualityPlugin.formatPhoneNumber(t.number, t.region)
+            }
+            assert(thrown0.getMessage === "Cannot format invalid phone number.")
+          }
+        }
+        
       }
     }
   }  
