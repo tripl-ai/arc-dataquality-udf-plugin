@@ -11,8 +11,8 @@ import xerial.sbt.Sonatype._
 homepage := Some(url("https://arc.tripl.ai"))
 scmInfo := Some(
   ScmInfo(
-    url("https://github.com/tripl-ai/arc-datavalidation-udf-plugin"),
-    "scm:git@github.com:tripl-ai/arc-datavalidation-udf-plugin.git"
+    url("https://github.com/tripl-ai/arc-dataquality-udf-plugin"),
+    "scm:git@github.com:tripl-ai/arc-dataquality-udf-plugin.git"
   )
 )
 developers := List(

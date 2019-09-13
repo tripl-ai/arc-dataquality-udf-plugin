@@ -1,6 +1,6 @@
-arc-datavalidation-udf-plugin defines a set of data validation user defined functions.
+arc-dataquality-udf-plugin defines a set of data quality/validation user defined functions.
 
-## UDFs
+## User Defined Functions
 
 - `is_valid_phonenumber(numberToParse, defaultRegion)` returns a boolean of whether the phone number appears valid for that region.
 - `format_phonenumber(numberToParse, defaultRegion)` returns an [ISO E164](https://en.wikipedia.org/wiki/E.164) formatted phone number string.

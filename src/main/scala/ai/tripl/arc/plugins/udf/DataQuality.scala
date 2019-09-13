@@ -11,7 +11,7 @@ import ai.tripl.arc.util.Utils
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat
 
-class DataValidation extends ai.tripl.arc.plugins.UDFPlugin {
+class DataQuality extends ai.tripl.arc.plugins.UDFPlugin {
 
   val version = Utils.getFrameworkVersion
 
@@ -19,14 +19,14 @@ class DataValidation extends ai.tripl.arc.plugins.UDFPlugin {
   override def register()(implicit spark: SparkSession, logger: Logger, arcContext: ARCContext) = {
 
     // register custom UDFs via sqlContext.udf.register("funcName", func )
-    spark.sqlContext.udf.register("is_valid_phonenumber", DataValidationPlugin.isValidPhoneNumber _ )
-    spark.sqlContext.udf.register("format_phonenumber", DataValidationPlugin.formatPhoneNumber _ )
-    spark.sqlContext.udf.register("is_valid_abn", DataValidationPlugin.isValidABN _ )
+    spark.sqlContext.udf.register("is_valid_phonenumber", DataQualityPlugin.isValidPhoneNumber _ )
+    spark.sqlContext.udf.register("format_phonenumber", DataQualityPlugin.formatPhoneNumber _ )
+    spark.sqlContext.udf.register("is_valid_abn", DataQualityPlugin.isValidABN _ )
 
   }
 }
 
-object DataValidationPlugin {
+object DataQualityPlugin {
 
   // uses google's libphonenumber to validate whether an input string phone number is valid for a specific region
   def isValidPhoneNumber(numberToParse: String, defaultRegion: String): Boolean = {

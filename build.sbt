@@ -8,7 +8,7 @@ lazy val root = (project in file(".")).
   enablePlugins(BuildInfoPlugin).
   configs(IntegrationTest).
   settings(
-    name := "arc-datavalidation-udf-plugin",
+    name := "arc-dataquality-udf-plugin",
     organization := "ai.tripl",
     organizationHomepage := Some(url("https://arc.tripl.ai")),
     crossScalaVersions := supportedScalaVersions,
@@ -18,7 +18,7 @@ lazy val root = (project in file(".")).
     parallelExecution in Test := false,
     parallelExecution in IntegrationTest := false,
     buildInfoKeys := Seq[BuildInfoKey](version, scalaVersion),
-    buildInfoPackage := "ai.tripl.arc.plugins.udf.datavalidation",
+    buildInfoPackage := "ai.tripl.arc.plugins.udf.dataquality",
     Defaults.itSettings,
     publishTo := sonatypePublishTo.value,
     pgpPassphrase := Some(sys.env.get("PGP_PASSPHRASE").getOrElse("").toCharArray),

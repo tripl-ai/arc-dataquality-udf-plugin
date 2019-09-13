@@ -11,7 +11,7 @@ import org.scalatest.{BeforeAndAfter, FunSuite}
 import ai.tripl.arc.udf.UDF
 
 
-class DataValidationPluginSuite extends FunSuite with BeforeAndAfter {
+class DataQualitySuite extends FunSuite with BeforeAndAfter {
 
   var session: SparkSession = _  
 
@@ -39,7 +39,7 @@ class DataValidationPluginSuite extends FunSuite with BeforeAndAfter {
     session.stop()
   }
 
-  test("DataValidationPluginSuite") {
+  test("DataQualitySuite") {
     implicit val spark = session
     import spark.implicits._
     implicit val logger = TestUtils.getLogger()
@@ -101,7 +101,7 @@ class DataValidationPluginSuite extends FunSuite with BeforeAndAfter {
 
     tests.foreach{ 
       t: PhoneNumberValid => {
-        assert(ai.tripl.arc.plugins.udf.DataValidationPlugin.isValidPhoneNumber(t.number, t.region) == t.valid, s"${t.number} ${t.region}")
+        assert(ai.tripl.arc.plugins.udf.DataQualityPlugin.isValidPhoneNumber(t.number, t.region) == t.valid, s"${t.number} ${t.region}")
       }
     }
   }
@@ -120,7 +120,7 @@ class DataValidationPluginSuite extends FunSuite with BeforeAndAfter {
 
     tests.foreach{ 
       t: PhoneNumberValid => {
-        assert(ai.tripl.arc.plugins.udf.DataValidationPlugin.formatPhoneNumber(t.number, t.region) == t.valid, s"${t.number} ${t.region}")
+        assert(ai.tripl.arc.plugins.udf.DataQualityPlugin.formatPhoneNumber(t.number, t.region) == t.valid, s"${t.number} ${t.region}")
       }
     }
   }  
@@ -138,7 +138,7 @@ class DataValidationPluginSuite extends FunSuite with BeforeAndAfter {
 
     tests.foreach{ 
       t: ABNValid => {
-        assert(ai.tripl.arc.plugins.udf.DataValidationPlugin.isValidABN(t.abn) == t.valid, s"${t.abn}")
+        assert(ai.tripl.arc.plugins.udf.DataQualityPlugin.isValidABN(t.abn) == t.valid, s"${t.abn}")
       }
     }
   }  
