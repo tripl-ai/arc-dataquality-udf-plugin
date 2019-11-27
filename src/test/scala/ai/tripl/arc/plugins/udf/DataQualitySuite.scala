@@ -69,10 +69,7 @@ class DataQualitySuite extends FunSuite with BeforeAndAfter {
 
     // assert graph created
     pipelineEither match {
-      case Left(err) => {
-        println(err)
-        assert(false)
-      }
+      case Left(err) => fail(err.toString)
       case Right((pipeline, _)) => {
         val row = ARC.run(pipeline)(spark, logger, arcContext).get.first
         
@@ -89,7 +86,7 @@ class DataQualitySuite extends FunSuite with BeforeAndAfter {
     case class PhoneNumberValid(
       number: String,
       region: String,
-      valid: Boolean,
+      valid: Boolean
     )
 
     val tests = List(
@@ -110,7 +107,7 @@ class DataQualitySuite extends FunSuite with BeforeAndAfter {
     case class PhoneNumberValid(
       number: String,
       region: String,
-      valid: Option[String],
+      valid: Option[String]
     )
 
     val tests = List(
@@ -138,7 +135,7 @@ class DataQualitySuite extends FunSuite with BeforeAndAfter {
   test("isValidABN") {
     case class ABNValid(
       abn: String,
-      valid: Boolean,
+      valid: Boolean
     )
 
     val tests = List(
