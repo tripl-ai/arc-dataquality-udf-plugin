@@ -22,6 +22,7 @@ class DataQuality extends ai.tripl.arc.plugins.UDFPlugin {
     spark.sqlContext.udf.register("is_valid_phonenumber", DataQualityPlugin.isValidPhoneNumber _ )
     spark.sqlContext.udf.register("format_phonenumber", DataQualityPlugin.formatPhoneNumber _ )
     spark.sqlContext.udf.register("is_valid_abn", DataQualityPlugin.isValidABN _ )
+    spark.sqlContext.udf.register("is_valid_acn", DataQualityPlugin.isValidACN _ )
 
   }
 }
@@ -50,7 +51,7 @@ object DataQualityPlugin {
     }
   }
 
-  // validates whether an ABN passes the inbuilt checksum function
+  // validates whether an Australian Business Number (ABN) passes the inbuilt checksum function
   // Subtract 1 from the first (left) digit to give a new eleven digit number.
   // Multiply each of the digits in this new number by its weighting factor.
   // Sum the resulting 11 products.
@@ -76,5 +77,35 @@ object DataQualityPlugin {
       false
     }
   }
+
+  // validates whether an Australian Company Number (ACN) passes the inbuilt checksum function
+  // Split the input ACN to remove the last digit which is the checksum digit
+  // Multiply each of the remaining digits in this new number by its weighting factor.
+  // Sum the resulting 8 products.
+  // Divide the total by 10, noting the remainder.
+  // if 10 - remainder = 10 then set to 0
+  // if remainder = checksum digit then the number is valid.
+  def isValidACN(acn: String): Boolean = {
+    // replace all non-digit characters
+    val cleanACN = acn.replaceAll("\\D", "")
+
+    // must be 9 characters
+    if (cleanACN.length == 9) {
+      val weightFactor = List(8, 7, 6, 5, 4, 3, 2, 1)
+      val (number, checksum) = cleanACN.splitAt(8)
+
+      // calculate sum
+      val sum = 10 - number.zipWithIndex.foldLeft(0) {
+        case (sum, (digit, index)) => {
+          sum + (weightFactor(index) * digit.toString.toInt)
+        }
+      } % 10 
+      
+      // validate sum
+      if (sum == 10) checksum.toInt == 0 else checksum.toInt == sum
+    } else {
+      false
+    }
+  }   
 
 }
