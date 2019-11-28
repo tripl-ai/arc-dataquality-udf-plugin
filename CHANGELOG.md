@@ -1,5 +1,8 @@
 ## Change Log
 
+# 1.1.0
+- is_valid_acn(acn)
+
 # 1.0.0
 
 - initial release.
