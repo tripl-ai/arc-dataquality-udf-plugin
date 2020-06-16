@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.4.0
+
+- bump to Arc 3.0.0
+- bump to libphonenumber 8.12.5
+
 ## 1.3.0
 
 - bump to Arc 2.10.0
