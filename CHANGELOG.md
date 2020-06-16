@@ -10,6 +10,8 @@
 - bump to Arc 2.10.0
 - bump to libphonenumber 8.12.1
 
+**NOTE** This is the last release supporting `Scala 2.11` given the release of `Spark 3.0` which only supports `Scala 2.12`.
+
 ## 1.2.0
 
 - bump to Arc 2.8.0
