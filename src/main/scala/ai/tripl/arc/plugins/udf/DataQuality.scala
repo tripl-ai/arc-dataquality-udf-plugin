@@ -13,7 +13,7 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat
 
 class DataQuality extends ai.tripl.arc.plugins.UDFPlugin {
 
-  val version = Utils.getFrameworkVersion
+  val version = ai.tripl.arc.plugins.udf.dataquality.BuildInfo.version
 
   // one udf plugin can register multiple user defined functions
   override def register()(implicit spark: SparkSession, logger: Logger, arcContext: ARCContext) = {
