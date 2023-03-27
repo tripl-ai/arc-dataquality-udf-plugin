@@ -12,7 +12,7 @@ object Dependencies {
 
   val sparkSql = "org.apache.spark" %% "spark-sql" % sparkVersion % "provided"
 
-  val libPhoneNumber = "com.googlecode.libphonenumber" % "libphonenumber" % "8.12.10"
+  val libPhoneNumber = "com.googlecode.libphonenumber" % "libphonenumber" % "8.12.15"
 
   // Project
   val etlDeps = Seq(
